@@ -6,6 +6,16 @@ export type IamStatement = {
   Resource: string | IntrinsicFunction | (string | IntrinsicFunction)[];
 };
 
+export type ApiType = 'GRAPHQL' | 'MERGED';
+
+export type SourceApiAssociationConfig = {
+  name: string;
+  mergedApiIdentifier: string | IntrinsicFunction;
+  description?: string;
+  mergeType?: 'AUTO_MERGE' | 'MANUAL_MERGE';
+  dependsOn?: string[];
+};
+
 export type WafConfig = {
   enabled?: boolean;
   arn?: string;

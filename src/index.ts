@@ -1167,6 +1167,16 @@ class ServerlessAppsyncPlugin {
           'Fn::GetAtt': [this.naming.getApiKeyLogicalId(name), 'ApiKey'],
         },
       };
+    } else if (address.startsWith('sourceApiAssociation.')) {
+      const [, name, attribute] = address.split('.');
+      return {
+        value: {
+          'Fn::GetAtt': [
+            this.naming.getSourceApiAssociationLogicalId(name),
+            attribute === 'arn' ? 'AssociationArn' : 'AssociationId',
+          ],
+        },
+      };
     } else {
       throw new this.serverless.classes.Error(`Unknown address '${address}'`);
     }

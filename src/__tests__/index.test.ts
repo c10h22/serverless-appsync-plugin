@@ -78,4 +78,42 @@ describe('variable', () => {
       }
     `);
   });
+
+  it('should resolve a source api association id', () => {
+    expect(
+      plugin.resolveVariable({
+        address: 'sourceApiAssociation.Books.id',
+        options: {},
+        resolveVariable: () => '',
+      }),
+    ).toMatchInlineSnapshot(`
+      {
+        "value": {
+          "Fn::GetAtt": [
+            "GraphQlSourceApiAssociationBooks",
+            "AssociationId",
+          ],
+        },
+      }
+    `);
+  });
+
+  it('should resolve a source api association arn', () => {
+    expect(
+      plugin.resolveVariable({
+        address: 'sourceApiAssociation.Books.arn',
+        options: {},
+        resolveVariable: () => '',
+      }),
+    ).toMatchInlineSnapshot(`
+      {
+        "value": {
+          "Fn::GetAtt": [
+            "GraphQlSourceApiAssociationBooks",
+            "AssociationArn",
+          ],
+        },
+      }
+    `);
+  });
 });

@@ -154,5 +154,6 @@ export const getAppSyncConfig = (
     dataSources,
     resolvers,
     pipelineFunctions,
+    sourceApiAssociations: config.sourceApiAssociations || [],
   };
 };

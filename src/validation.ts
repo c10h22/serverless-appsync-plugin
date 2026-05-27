@@ -681,6 +681,35 @@ export const appSyncSchema = {
       },
       required: [],
     },
+    sourceApiAssociation: {
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string',
+          pattern: '^[A-Za-z][A-Za-z0-9]*$',
+          errorMessage:
+            'must start with a letter and contain only letters and digits',
+        },
+        mergedApiIdentifier: {
+          $ref: '#/definitions/stringOrIntrinsicFunction',
+        },
+        description: { type: 'string' },
+        mergeType: {
+          type: 'string',
+          enum: ['AUTO_MERGE', 'MANUAL_MERGE'],
+          errorMessage: "must be 'AUTO_MERGE' or 'MANUAL_MERGE'",
+        },
+        dependsOn: {
+          type: 'array',
+          items: { type: 'string' },
+        },
+      },
+      required: ['name', 'mergedApiIdentifier'],
+      additionalProperties: {
+        not: true,
+        errorMessage: 'invalid (unknown) property',
+      },
+    },
   },
   properties: {
     name: { type: 'string' },
@@ -737,6 +766,16 @@ export const appSyncSchema = {
       },
     },
     xrayEnabled: { $ref: '#/definitions/booleanOrIntrinsicFunction' },
+    apiType: {
+      type: 'string',
+      enum: ['GRAPHQL', 'MERGED'],
+      errorMessage: 'must be "GRAPHQL" or "MERGED"',
+    },
+    sourceApiAssociations: {
+      type: 'array',
+      items: { $ref: '#/definitions/sourceApiAssociation' },
+      errorMessage: 'contains invalid source api association definitions',
+    },
     visibility: {
       type: 'string',
       enum: ['GLOBAL', 'PRIVATE'],

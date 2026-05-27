@@ -17,6 +17,8 @@ import {
   DsRelationalDbConfig,
   SyncConfig,
   EnvironmentVariables,
+  ApiType,
+  SourceApiAssociationConfig,
 } from './common';
 export * from './common';
 
@@ -37,6 +39,8 @@ export type AppSyncConfig = {
   substitutions?: Substitutions;
   environment?: EnvironmentVariables;
   xrayEnabled?: boolean | IntrinsicFunction;
+  apiType?: ApiType;
+  sourceApiAssociations?: SourceApiAssociationConfig[];
   logging?: LoggingConfig;
   caching?: CachingConfig;
   waf?: WafConfig;

@@ -24,7 +24,9 @@ import { DataSource } from './DataSource';
 import { Resolver } from './Resolver';
 import { PipelineFunction } from './PipelineFunction';
 import { Schema } from './Schema';
+import { SourceApiAssociation } from './SourceApiAssociation';
 import { Waf } from './Waf';
+import { SourceApiAssociationConfig } from '../types/common';
 
 export class Api {
   public naming: Naming;
@@ -64,10 +66,24 @@ export class Api {
       merge(resources, this.compileResolver(resolver));
     });
 
+    forEach(this.config.sourceApiAssociations, (association) => {
+      merge(resources, this.compileSourceApiAssociation(association));
+    });
+
     return resources;
   }
 
   compileEndpoint(): CfnResources {
+    // `apiType: MERGED` is reserved but not yet synthesized. Fail loudly
+    // rather than silently emit a plain GRAPHQL api. MERGED support is a
+    // planned follow-up (execution role + skipping schema/datasource/resolver
+    // compilation).
+    if (this.config.apiType === 'MERGED') {
+      throw new Error(
+        "apiType 'MERGED' is not yet implemented in this fork. Only 'GRAPHQL' source APIs are supported.",
+      );
+    }
+
     const logicalId = this.naming.getApiLogicalId();
 
     const endpointResource: CfnResource = {
@@ -446,6 +462,13 @@ export class Api {
   compileResolver(resolverConfig: ResolverConfig): CfnResources {
     const resolver = new Resolver(this, resolverConfig);
     return resolver.compile();
+  }
+
+  compileSourceApiAssociation(
+    config: SourceApiAssociationConfig,
+  ): CfnResources {
+    const association = new SourceApiAssociation(this, config);
+    return association.compile();
   }
 
   compilePipelineFunctionResource(

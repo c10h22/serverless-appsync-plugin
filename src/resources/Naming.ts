@@ -63,6 +63,10 @@ export class Naming {
     return this.getLogicalId(`GraphQlApi${name}`);
   }
 
+  getSourceApiAssociationLogicalId(name: string) {
+    return this.getLogicalId(`GraphQlSourceApiAssociation${name}`);
+  }
+
   // Warning: breaking change.
   // api name added
   getDataSourceLogicalId(name: string) {

@@ -19,6 +19,8 @@ import {
   Substitutions,
   EnvironmentVariables,
   EnhancedMetricsConfig,
+  ApiType,
+  SourceApiAssociationConfig,
 } from './common';
 export * from './common';
 
@@ -36,6 +38,8 @@ export type AppSyncConfig = {
   environment?: EnvironmentVariables;
   enhancedMetrics?: EnhancedMetricsConfig;
   xrayEnabled?: boolean | IntrinsicFunction;
+  apiType?: ApiType;
+  sourceApiAssociations: SourceApiAssociationConfig[];
   logging?: LoggingConfig;
   caching?: CachingConfig;
   waf?: WafConfig;

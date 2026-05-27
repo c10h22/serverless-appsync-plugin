@@ -253,5 +253,6 @@ exports[`returns basic config 1`] = `
   "schema": [
     "schema.graphql",
   ],
+  "sourceApiAssociations": [],
 }
 `;

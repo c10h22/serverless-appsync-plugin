@@ -50,6 +50,7 @@ export const appSyncConfig = (partial?: Partial<AppSyncConfig>) => {
     resolvers: {},
     pipelineFunctions: {},
     dataSources: {},
+    sourceApiAssociations: [],
     substitutions: {},
     tags: {
       stage: 'Dev',

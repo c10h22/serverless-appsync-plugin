@@ -147,6 +147,7 @@ breakdown, environment variables, and cost profile.
 - [DataSources](doc/dataSources.md)
 - [Resolvers](doc/resolvers.md)
 - [Pipeline Functions](doc/pipeline-functions.md)
+- [Source API associations (Merged APIs)](doc/source-api-associations.md)
 - [Authentication](doc/authentication.md)
 - [API keys](doc/API-keys.md)
 - [Custom Domain](doc/custom-domain.md)
@@ -180,6 +181,8 @@ This plugin exports some handy variables that you can use in your yml files to r
 - `${appsync:url}`: The URL of the AppSync API
 - `${appsync:arn}`: The ARN of the AppSync API
 - `${appsync:apiKey.[NAME]}`: An API key
+- `${appsync:sourceApiAssociation.[NAME].id}`: A source API association id
+- `${appsync:sourceApiAssociation.[NAME].arn}`: A source API association ARN
 
 Example:
 

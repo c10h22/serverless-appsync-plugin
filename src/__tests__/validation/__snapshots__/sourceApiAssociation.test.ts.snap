@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`SourceApiAssociation Invalid should validate: Invalid apiType 1`] = `"/apiType: must be "GRAPHQL" or "MERGED""`;
+
+exports[`SourceApiAssociation Invalid should validate: Invalid mergeType 1`] = `"/sourceApiAssociations/0/mergeType: must be 'AUTO_MERGE' or 'MANUAL_MERGE'"`;
+
+exports[`SourceApiAssociation Invalid should validate: Invalid name pattern 1`] = `"/sourceApiAssociations/0/name: must start with a letter and contain only letters and digits"`;
+
+exports[`SourceApiAssociation Invalid should validate: Missing mergedApiIdentifier 1`] = `"/sourceApiAssociations/0: must have required property 'mergedApiIdentifier'"`;
+
+exports[`SourceApiAssociation Invalid should validate: Unknown property 1`] = `"/sourceApiAssociations/0/foo: invalid (unknown) property"`;
