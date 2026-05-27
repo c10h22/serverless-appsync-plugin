@@ -20,7 +20,7 @@
     "build": "tsc",
     "lint": "eslint . && tsc --noEmit",
     "lint:fix": "eslint . --fix",
-    "prepare": "husky && rm -rf lib & npm run build"
+    "prepare": "rm -rf lib && npm run build && (husky || true)"
   },
   "engines": {
     "node": ">=20.0.0",
