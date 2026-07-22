@@ -117,3 +117,20 @@ describe('variable', () => {
     `);
   });
 });
+
+describe('services without an appSync block', () => {
+  const hooks = [
+    'before:logs:logs',
+    'before:deploy:function:initialize',
+    'before:package:initialize',
+    'before:aws:info:gatherData',
+    'after:aws:info:gatherData',
+    'after:aws:info:displayServiceInfo',
+  ];
+
+  it.each(hooks)('should no-op on %s when appSync is undefined', (hook) => {
+    const noAppSyncPlugin = given.plugin();
+    delete noAppSyncPlugin.serverless.configurationInput.appSync;
+    expect(() => noAppSyncPlugin.hooks[hook]()).not.toThrow();
+  });
+});

@@ -411,8 +411,16 @@ class ServerlessAppsyncPlugin {
     };
 
     this.hooks = {
-      'after:aws:info:gatherData': () => this.gatherData(),
+      'after:aws:info:gatherData': () => {
+        if (!this.hasAppSyncConfig()) {
+          return;
+        }
+        return this.gatherData();
+      },
       'after:aws:info:displayServiceInfo': () => {
+        if (!this.hasAppSyncConfig()) {
+          return;
+        }
         this.displayEndpoints();
         this.displayApiKeys();
       },
@@ -462,10 +470,21 @@ class ServerlessAppsyncPlugin {
       'before:aws:info:gatherData',
     ].forEach((hook) => {
       this.hooks[hook] = () => {
+        // No-op when the service defines no `appSync` block: the plugin may
+        // be loaded from a shared plugins list by services that have no
+        // AppSync API (e.g. infra-only stacks). Explicit `appsync ...`
+        // commands still call loadConfig() and fail loudly.
+        if (!this.hasAppSyncConfig()) {
+          return;
+        }
         this.loadConfig();
         this.buildAndAppendResources();
       };
     });
+  }
+
+  hasAppSyncConfig(): boolean {
+    return this.serverless.configurationInput.appSync !== undefined;
   }
 
   async getApiId() {
